@@ -56,3 +56,69 @@ function render(objs) {
 		draw(i);
 	});
 }
+
+function WorldSpace(Objs, size) {
+	return {
+		Objs,
+		size,
+
+		tickEvents: [],
+		addTickEvent(func) {
+			this.tickEvents.push(func);
+		},
+		runTickEvents() {
+			this.tickEvents.forEach(func => {
+				func(this);
+			});
+			this.Objs.forEach(obj => {
+				obj.runTickEvents();
+			});
+		},
+
+		startEvents: [],
+		addStartEvent(func) {
+			this.tickEvents.push(func);
+		},
+		runStartEvents() {
+			this.startEvents.forEach(func => {
+				func(this);
+			});
+			this.Objs.forEach(obj => {
+				obj.runStartEvents();
+			});
+		},
+
+		start(interval) {
+			runStartEvents()
+			setInterval(runTickEvents, interval);
+		},
+	};
+}
+
+function Obj(pos, size, imgPath) {
+	return {
+		pos,
+		size,
+		imgPath,
+
+		tickEvents: [],
+		addTickEvent(func) {
+			this.tickEvents.push(func);
+		},
+		runTickEvents() {
+			this.tickEvents.forEach(func => {
+				func(this);
+			});
+		},
+		
+		startEvents: [],
+		addStartEvent(func) {
+			this.startEvents.push(func);
+		},
+		runStartEvents() {
+			this.startEvents.forEach(func => {
+				func(this);
+			});
+		},
+	}
+}
