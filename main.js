@@ -56,3 +56,23 @@ function render(objs) {
 		draw(i);
 	});
 }
+
+const input = {
+	newKeyEvent(key, type, func) {
+		switch (type) {
+			case "up":
+				document.addEventListener("keyup", (e) => {
+					if (e.code === key) {
+						func(e);
+					}
+				});
+				break;
+			default:
+				document.addEventListener("keydown", (e) => {
+					if (e.code === key) {
+						func(e);
+					}
+				});
+		}
+	}
+};
